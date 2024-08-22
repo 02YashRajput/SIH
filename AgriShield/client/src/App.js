@@ -1,24 +1,38 @@
-import logo from './logo.svg';
+
+import { Routes,Route, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
+import { ToastContainer } from 'react-toastify';
+import Dashboard from './pages/Dashboard';
+import NotFound from './pages/NotFound'; 
+import { useEffect } from 'react';
+import SignUp from './pages/SignUp';
+import Login from './pages/Login';
+import ContactUs from './pages/ContactUs';
 
 function App() {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  useEffect(()=>{
+
+    if(location.pathname === "/"){
+      navigate("/dashboard"); 
+    }
+  },[location.pathname,navigate])
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    < >
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard/>}/> 
+      <Route path="/sign-up" element={<SignUp/>}/>
+      <Route path = "/login" element = {<Login/>}/>
+      <Route path="/contact-us" element={<ContactUs/>}/>
+      <Route path='*' element={<NotFound/>}/> 
+    </Routes>
+    <ToastContainer/>
+    </>
   );
 }
 

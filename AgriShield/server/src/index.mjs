@@ -3,8 +3,10 @@ import mongoose from "mongoose";
 import MongoStore from "connect-mongo"
 import session from "express-session"
 import cookieParser from "cookie-parser"
-import cors from "cors"
-
+import cors from "cors";
+import passport from  "passport";
+import AllRoutes from "./routes/route.mjs"; 
+import "./strategies/local-strategy.mjs";
 
 const app = express();
 
@@ -18,12 +20,12 @@ mongoose
 });
 
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-)
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//   })
+// )
 
 app.use(express.json());
 app.use(cookieParser("void"));
@@ -40,6 +42,13 @@ app.use(
     })
   })
 )
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(AllRoutes)
+
+
 app.listen(5000,()=>{
   console.log("server is running on port 5000");
 })

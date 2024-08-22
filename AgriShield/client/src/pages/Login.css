@@ -1,0 +1,14 @@
+.backscreen {
+  
+  animation: moveDown 6s linear infinite;
+}
+
+@keyframes moveDown {
+  0% {
+    transform: translateY(-200%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+/* .userTypeLabel input[type="radio"]:checked */
