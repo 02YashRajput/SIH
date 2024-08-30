@@ -1,7 +1,6 @@
 import React from "react";
 import logo from "../utils/AgriShieldTransparent.png";
 import { useNavigate } from "react-router-dom";
-import { CiSearch } from "react-icons/ci";
 import { FaHome } from "react-icons/fa";
 import { FaStore } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -39,44 +38,31 @@ const Header = ({ userName }) => {
 
 
   return (
-    <div className={`fixed top-0 text-xl bg-green-200 left-0 w-full h-28 z-50 flex items-center transition-shadow duration-300 justify-between px-5 ${hasShadow? "shadow-lg":""}`}>
+    <div class={`fixed top-0 text-xl bg-green-200 left-0 w-full h-28 z-50 flex items-center transition-shadow duration-300 justify-between px-5 ${hasShadow? "shadow-lg":""}`}>
       {/* Logo Section  */}
       <div
         onClick={() => {
           navigate(`/dashboard`);
         }}
       >
-        <img src={logo} alt="AgriShield Logo" className="h-24 object-contain" />
+        <img src={logo} alt="AgriShield Logo" class="h-24 cursor-pointer object-contain" />
       </div>
 
-      <div class="font-bold text-3xl hidden lg:block ">Hi, {userName}</div>
+      <div class="font-bold text-3xl hidden lg:block mr-auto ml-10">Hi, {userName}</div>
 
-      {/* Search section */}
-      <form class="flex items-center justify-between  border  border-gray-300 rounded-lg shadow-sm w-[40%] max-w-[30rem]  " onSubmit={(e)=>{
-        e.preventDefault();
-      }}>
-        <input
-          type="search"
-          placeholder="Search..."
-          class="w-full h-[3rem]  px-4 py-2 outline-none"
-        />
-        <button className="px-5 py-2 h-full bg-gray-300 rounded-lg rounded-l-none">
-
-        <CiSearch class="text-4xl " />
-        </button>
-      </form>
+    
 
       {/* navigation Section */}
-        <div className="relative flex justify-center items-center" >
+        <div class="relative flex justify-center items-center" >
           <button onClick={toogleFunc}>
 
-            <IoMenuSharp className="md:hidden text-4xl"/>
+            <IoMenuSharp class="md:hidden text-4xl"/>
           </button>
         
-      <nav className={`  absolute  top-12 right-0  md:flex md:top-0 md:relative ${showMenu ? "" : "hidden"} `}>
-        <ul className="flex flex-col md:flex md:flex-row md:gap-8">
+      <nav class={`  absolute  top-12 right-0  md:flex md:top-0 md:relative ${showMenu ? "" : "hidden"} `}>
+        <ul class="flex flex-col md:flex md:flex-row md:gap-8">
           <li
-            className="flex items-center gap-1  cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
+            class="flex items-center gap-1  cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
             onClick={() => {
               navigate(`/dashboard`);
             }}
@@ -84,23 +70,31 @@ const Header = ({ userName }) => {
             <FaHome /> Home
           </li>
           <li
-            className="flex  items-center gap-1  cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
+            class="flex  items-center gap-1  cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
             onClick={() => {
-              // navigate(`/market-place`);
+              navigate(`/market-place`);
             }}
           >
             <FaStore /> MarketPlace
           </li>
           <li
-            className="flex  items-center gap-1  cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
+            class="flex  items-center gap-1  cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
             onClick={() => {
-              // navigate(`/my-contracts`);
+              navigate(`/my-contracts`);
             }}
           >
             <IoDocumentLockSharp/>My Contracts
           </li>
           <li
-            className="flex items-center gap-1  cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
+            class="flex  items-center gap-1  cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
+            onClick={() => {
+              navigate(`/negotiations`);
+            }}
+          >
+            <IoDocumentLockSharp/>My Negotiations
+          </li>
+          <li
+            class="flex items-center gap-1  cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
             onClick={() => {
               navigate(`/contact-us`);
             }}
@@ -109,7 +103,8 @@ const Header = ({ userName }) => {
           </li>
             {/* Profile */}
             <li
-          className="flex items-center gap-2 cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
+          class
+          ="flex items-center gap-2 cursor-pointer  hover:text-yellow-700 m-1 md:m-0"
           onClick={() => {
             navigate(`/profile`);
           }}

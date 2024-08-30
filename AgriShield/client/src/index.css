@@ -1,9 +1,13 @@
 
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* index.css or globals.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
+body {
+  @apply font-sans;
+}
 
 .spinner {
   --d: 24.6px;

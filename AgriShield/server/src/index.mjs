@@ -7,6 +7,8 @@ import cors from "cors";
 import passport from  "passport";
 import AllRoutes from "./routes/route.mjs"; 
 import "./strategies/local-strategy.mjs";
+import { MarketPlace } from "./mongoose/market-place.mjs";
+
 
 const app = express();
 
@@ -20,12 +22,12 @@ mongoose
 });
 
 
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//   })
-// )
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+)
 
 app.use(express.json());
 app.use(cookieParser("void"));
@@ -47,6 +49,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(AllRoutes)
+
+
+
+// const insertFunction = async()=>{
+
+
+//   for (const contractData of mockContracts) {
+//     try {
+//       const newContract = new MarketPlace(contractData);
+//       await newContract.save();
+//     } catch (error) {
+//       console.error("Error inserting mock contract:", error);
+//     }
+//   }
+
+// }
+// insertFunction();
+
+
 
 
 app.listen(5000,()=>{

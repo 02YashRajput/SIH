@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
+
   email: {
     type: String,
     required: [true, "Email cannot be empty"],
@@ -13,8 +14,8 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Password cannot be empty"],
     trim: true,
+    required: true,
   },
   name: {
     type: String,
@@ -23,22 +24,20 @@ const userSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    unique:true,
-    required: [true, "Phone number cannot be empty"],
+    unique: true,
     trim: true,
+    required: true,
+
     match: [
       /^[6-9]\d{9}$/,
       "Please enter a valid 10-digit Indian mobile number",
     ],
   },
-  userType:{
-    type:String,
-    enum:['Farmer','Buyer', 'Admin'],
-    required:true,
-  }
+  userType: {
+    type: String,
+    enum: ['Farmer', 'Buyer', 'Admin'],
+    required: true,
+  },
 });
 
-
 export const User = mongoose.model('User', userSchema);
-
-

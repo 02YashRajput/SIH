@@ -12,7 +12,7 @@ export default function AppContextProvider({children}){
 
     try {
       const res = await fetch("/api"+url);
-      if(res.status === 400){
+      if(res.status === 404){
         navigate("/login");
       }
       if (!res.ok) {

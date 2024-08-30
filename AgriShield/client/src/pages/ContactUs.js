@@ -65,67 +65,66 @@ const ContactUs = () => {
   }, [location.pathname]);
 
   return (
-    <div className="relative pt-28 min-h-screen flex flex-col  ">
+    <div class="relative pt-28 min-h-screen flex flex-col  ">
       {waiting === true ? (
-        <div className="w-full flex justify-center items-center h-screen">
+        <div class="w-full flex justify-center items-center h-screen">
           <Loading />{" "}
         </div>
       ) : (
-        <div className="flex-grow w-full p-20 px-60 flex flex-col">
-          {console.log(pageData)}
+        <div class=" w-full p-20 px-60 flex-grow flex flex-col">
           <Header userName={pageData.data.user.name}></Header>
 
           {/* hero section  */}
-          <div className="bg-green-100 py-20  w-full flex-grow flex justify-center items-center shadow-2xl">
-            <div className="bg-white w-1/2 p-10 flex flex-col justify-center items-center">
-              <h1 className="text-5xl text-gray-500">Get In Touch</h1>
-              <div className="mt-5 w-1/4 h-[2px] bg-blue-700"></div>
+          <div class="bg-green-100 py-20  w-full flex-grow flex justify-center items-center shadow-2xl">
+            <div class="bg-white w-1/2 p-10 flex flex-col justify-center items-center">
+              <h1 class="text-5xl text-gray-500">Get In Touch</h1>
+              <div class="mt-5 w-1/4 h-[2px] bg-blue-700"></div>
               <form
-                className="bg-white w-full  flex flex-col justify-center items-center"
+                class="bg-white w-full  flex flex-col justify-center items-center"
                 onSubmit={(e) => {
                   submitHandler(e);
                 }}
               >
-                <label className="  text-2xl text-gray-700 mb-6 w-[70%] mt-10  ">
+                <label class="  text-2xl text-gray-700 mb-6 w-[70%] mt-10  ">
                   Name:
                   <input
                     type="text"
                     name="name"
-                    className="mt-1 text-lg block  p-2 border w-full border-gray-300 rounded-lg outline-none"
+                    class="mt-1 text-lg block  p-2 border w-full border-gray-300 rounded-lg outline-none"
                     placeholder="Your name"
                   />
                 </label>
-                <label className="text-2xl text-gray-700 mb-6 w-[70%]">
+                <label class="text-2xl text-gray-700 mb-6 w-[70%]">
                   Email
                   <input
                     type="email"
                     name="email"
-                    className="mt-1 text-lg block  p-2 border w-full border-gray-300 rounded-lg outline-none"
+                    class="mt-1 text-lg block  p-2 border w-full border-gray-300 rounded-lg outline-none"
                     placeholder="Your email"
                   />
                 </label>
-                <label className="text-2xl text-gray-700 mb-6 w-[70%]">
+                <label class="text-2xl text-gray-700 mb-6 w-[70%]">
                   Phone No.
                   <input
                     type="tel"
                     name="phone"
-                    className="mt-1 text-lg block  p-2 border w-full border-gray-300 rounded-lg outline-none"
+                    class="mt-1 text-lg block  p-2 border w-full border-gray-300 rounded-lg outline-none"
                     placeholder="Your email"
                   />
                 </label>
-                <label className="text-2xl text-gray-700 mb-6 w-[70%]">
+                <label class="text-2xl text-gray-700 mb-6 w-[70%]">
                   Message
                   <textarea
                     name="message"
-                    className="mt-1 text-lg block  p-2 border w-full border-gray-300 rounded-lg outline-none"
+                    class="mt-1 text-lg block  p-2 border w-full border-gray-300 rounded-lg outline-none"
                     placeholder="Your message"
                   ></textarea>
                 </label>
-                <button className="py-2 px-4 bg-green-200 text-2xl rounded-lg mt-8">
+                <button class="py-2 px-4 bg-green-200 text-2xl rounded-lg mt-8">
                   Submit
                 </button>
               </form>
-              <div className="mt-10 text-4xl flex gap-8">
+              <div class="mt-10 text-4xl flex gap-8">
                 <button
                   onClick={() => {
                     window.open(

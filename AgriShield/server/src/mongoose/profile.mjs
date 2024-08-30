@@ -7,30 +7,17 @@ const farmerProfileSchema = new Schema({
     required: true,
   },
   myprofile: {
+    photo:{
+      type: String,
+      trim:true,
+    },
     address: {
       type: String,
       trim: true,
     },
   },
 
-  transactions: [
-    {
-      amount: {
-        type: Number,
-        required: true,
-      },
-      date: {
-        type: Date,
-        required: true,
-        default: Date.now,
-      },
-      type: {
-        type: String,
-        enum: ["credit", "debit"],
-        required: true,
-      },
-    },
-  ],
+
 
   notificationPreference: {
     type: String,
@@ -38,25 +25,35 @@ const farmerProfileSchema = new Schema({
     required: true,
   },
   paymentInformation: {
-    bankDetails: [
+    bankDetails:
       {
-        bankName: {
+        accountNumber:{
+          type:Number,
+          default:null,
+        },
+        accountHolderName:{
           type: String,
         },
-        accountNumber: {
+        bankName:{
+          type:String,
+        },
+        IFSCCode:{
+          type: String,
+        }
+      },
+  
+    upiDetails:
+      {
+        upiId:{
           type: String,
         },
-        accountHolderName: {
-          type: String,
-        },
-        ifscCode: {
-          type: String,
-        },
-        branchName: {
+        upiName:{
           type: String,
         },
       },
-    ],
+
+    
+
   },
   farmDetails: {
     farmAddress: {
@@ -67,9 +64,7 @@ const farmerProfileSchema = new Schema({
     },
     cropsGrown: [
       {
-        crop: {
-          type: String,
-        },
+        type:String
       },
     ],
     annualYield: {
@@ -85,55 +80,50 @@ const buyerProfileSchema = new Schema({
     required: true,
   },
   myprofile: {
+    photo:{
+      type: String,
+      trim: true,
+    },
     address: {
       type: String,
       trim: true,
     },
   },
-  transactions: [
-    {
-      amount: {
-        type: Number,
-        required: true,
-      },
-      date: {
-        type: Date,
-        required: true,
-        default: Date.now,
-      },
-      type: {
-        type: String,
-        enum: ["credit", "debit"],
-        required: true,
-      },
-    },
-  ],
+
   notificationPreference: {
     type: String,
     enum: ["off", "on"],
     required: true,
   },
   paymentInformation: {
-    bankDetails: [
+    bankDetails:
       {
-        bankName: {
+        accountNumber:{
+          type:Number,
+        },
+        accountHolderName:{
           type: String,
         },
-        accountNumber: {
+        bankName:{
+          type:String,
+        },
+        IFSCCode:{
+          type: String,
+        }
+      },
+   
+    upiDetails:
+      {
+        upiId:{
           type: String,
         },
-        accountHolderName: {
-          type: String,
-        },
-        ifscCode: {
-          type: String,
-        },
-        branchName: {
+        upiName:{
           type: String,
         },
       },
-    ],
-  },
+
+    
+  }
 });
 
 const adminProfileSchema = new Schema({
@@ -143,6 +133,10 @@ const adminProfileSchema = new Schema({
     required: true,
   },
   myprofile: {
+    photo:{
+      type: String,
+      trim: true,
+    },
     address: {
       type: String,
       trim: true,

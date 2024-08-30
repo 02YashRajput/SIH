@@ -8,6 +8,11 @@ import { useEffect } from 'react';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import ContactUs from './pages/ContactUs';
+import Profile from './pages/Profile';
+import MyContracts from './pages/MyContracts';
+import MarketPlace from './pages/MarketPlace';
+import Contract from './pages/Contract';
+import Negotiations from './pages/Negotiations';
 
 function App() {
 
@@ -29,6 +34,11 @@ function App() {
       <Route path="/sign-up" element={<SignUp/>}/>
       <Route path = "/login" element = {<Login/>}/>
       <Route path="/contact-us" element={<ContactUs/>}/>
+      <Route path="/profile" element={<Profile/>}/>
+      <Route path='/my-contracts' element={<MyContracts/>}/>
+      <Route path="/market-place" element={<MarketPlace/>}/>
+      <Route path='/contract' element={<Contract/>}/>
+      <Route path="/negotiations" element={<Negotiations/>}/>
       <Route path='*' element={<NotFound/>}/> 
     </Routes>
     <ToastContainer/>
