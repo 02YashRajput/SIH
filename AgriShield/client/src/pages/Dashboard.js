@@ -31,7 +31,7 @@ const Dashboard = () => {
       ) : (
 
         <div class="flex-grow flex flex-col justify-center items-center ">
-          <Header userName={ "Guest"}></Header>
+          <Header userName={pageData.data.user.name}></Header>
           {console.log(pageData)}
           <video class="h-screen w-full object-cover" autoPlay loop muted>
             <source src={DashboardVideo} type="video/mp4" />
