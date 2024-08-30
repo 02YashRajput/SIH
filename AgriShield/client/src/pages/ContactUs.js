@@ -34,7 +34,11 @@ const ContactUs = () => {
         phone: phoneValue,
         msg: messageValue,
         userType: pageData.data.user.userType,
-      });
+      },
+      {
+        headers: {
+          'ngrok-skip-browser-warning': 'any-value'
+        }}   );
 
       if (response.status === 201) {
         toast.success(response.data.message);

@@ -25,7 +25,11 @@ const StatusUpdate = ({ index, setIndex, statusArray, setIsVisible, id  , setCon
         }
   
         // Post the data to the server
-        const res = await axios.post(`/api${location.pathname}?id=${id}`, statsArray);
+        const res = await axios.post(`/api${location.pathname}?id=${id}`, statsArray,
+          {
+            headers: {
+              'ngrok-skip-browser-warning': 'any-value'
+            }}   );
        setContractStatus(res.data.contractStatus)
         if (res.status === 200) {
           toast.success('Status updated successfully.');

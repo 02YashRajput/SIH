@@ -17,7 +17,10 @@ const MarketPlace = () => {
       setLoading(true);
       await fetchData(location.pathname);
       try {
-        const response = await fetch("/api/market-place/profile");
+        const response = await fetch("/api/market-place/profile",{
+          headers: {
+            'ngrok-skip-browser-warning': 'any-value'
+          }});
         
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

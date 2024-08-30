@@ -5,7 +5,11 @@ import { toast } from 'react-toastify';
 const LogoutPopup = ({ isOpen, onClose }) => {
   const handleLogout = async () => {
     try {
-      const res = await axios.post('/api/logout');
+      const res = await axios.post('/api/logout',
+        {
+          headers: {
+            'ngrok-skip-browser-warning': 'any-value'
+          }}   );
       if (res.status === 200) {
         toast.success("Logged out successfully.");
         window.location.reload(); // or redirect to login page

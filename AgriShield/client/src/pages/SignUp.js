@@ -35,7 +35,11 @@ const SignUp = () => {
         password: passwordValue,
         phone: phone,
         userType: userType,
-      });
+      },{
+        headers: {
+          'ngrok-skip-browser-warning': 'any-value'
+        }}
+    );
       if (response.status === 201) {
         toast.success("Signed Up successfully");
         navigate("/dashboard");

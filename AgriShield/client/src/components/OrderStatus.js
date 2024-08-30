@@ -12,7 +12,11 @@ const OrderStatus = ({ currentStatusIndex, statusArray }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("api/contract/profile");
+        const response = await fetch("api/contract/profile",
+          {
+            headers: {
+              'ngrok-skip-browser-warning': 'any-value'
+            }}   );
         const data = await response.json();
         console.log(data);
         setModalData(data.data);

@@ -16,10 +16,17 @@ const Login = () => {
     try{
       if(!identifier) throw new Error("Please enter an email or phone no.");
       if(!passwordValue) throw new Error("Please enter a password");
-      const response = await axios.post("/api/login", {
-        identifier: identifier,
-        password: passwordValue,
-      });
+      const response = await axios.post(
+        "/api/login",
+        {
+          identifier: identifier,
+          password: passwordValue,
+        },
+        {
+          headers: {
+            'ngrok-skip-browser-warning': 'any-value'
+          }}      );
+
       if (response.status === 200) toast.success("Logged In successfully");
       navigate('/dashboard')
     }

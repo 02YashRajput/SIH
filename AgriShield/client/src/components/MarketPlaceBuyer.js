@@ -47,7 +47,11 @@ const MarketPlaceBuyer = (props) => {
           contractData.location = { latitude, longitude };
 
           try {
-            const response = await axios.post("/api/market-place/list-contract", contractData);
+            const response = await axios.post("/api/market-place/list-contract", contractData,
+              {
+                headers: {
+                  'ngrok-skip-browser-warning': 'any-value'
+                }}   );
             if (response.status === 201) {
               toast.success("Contract listed successfully!");
               form.reset();

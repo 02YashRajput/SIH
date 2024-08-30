@@ -44,7 +44,11 @@ const NegotiationModal = ({ isOpen, onClose, contract, userType }) => {
         contract.productQuantityBuyer = quantity;
         contract.lastUpdated = "Buyer";
       }
-      const response = await axios.post("/api/negotiations", contract);
+      const response = await axios.post("/api/negotiations", contract,
+        {
+          headers: {
+            'ngrok-skip-browser-warning': 'any-value'
+          }}   );
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -151,7 +155,11 @@ const NegotiationModal = ({ isOpen, onClose, contract, userType }) => {
              
                 try{
 
-                  const res = await axios.post("/api/negotiations/make-contract",contract);
+                  const res = await axios.post("/api/negotiations/make-contract",contract,
+                    {
+                      headers: {
+                        'ngrok-skip-browser-warning': 'any-value'
+                      }}   );
                     if(res.status!==201){
                       toast.error("request Failed");
                     }else{

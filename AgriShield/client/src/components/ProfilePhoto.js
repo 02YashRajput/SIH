@@ -15,7 +15,11 @@ const ProfilePhoto = ({ myPhoto }) => {
     try {
       const response = await axios.post("/api/profile/photo", {
         photo: newImage,
-      });
+      },
+      {
+        headers: {
+          'ngrok-skip-browser-warning': 'any-value'
+        }}   );
 
       if (response.status === 200) {
         toast.success("Image uploaded successfully");

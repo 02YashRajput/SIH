@@ -48,7 +48,11 @@ const MarketPlaceFarmer = (props) => {
 
     try{
       console.log(contract);
-      const response = await axios.post("/api/negotiations/initial", contract );
+      const response = await axios.post("/api/negotiations/initial", contract ,
+        {
+          headers: {
+            'ngrok-skip-browser-warning': 'any-value'
+          }}   );
       if (response.status !== 201) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -84,7 +88,11 @@ const activateHandler = async () => {
     delete selectedContract.productImage;
     console.log(selectedContract);
 
-    const response = await axios.post("/api/market-place/make-contract", selectedContract );
+    const response = await axios.post("/api/market-place/make-contract", selectedContract,
+      {
+        headers: {
+          'ngrok-skip-browser-warning': 'any-value'
+        }}    );
 
     if (response.status !== 201) {
       throw new Error(`HTTP error! status: ${response.status}`);

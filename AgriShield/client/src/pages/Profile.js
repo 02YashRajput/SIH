@@ -268,7 +268,10 @@ const Profile = () => {
                              console.log(sendData)
 
                             try{
-                                const res = await axios.post("/api/profile",sendData);
+                                const res = await axios.post("/api/profile",sendData,{
+                                  headers: {
+                                    'ngrok-skip-browser-warning': 'any-value'
+                                  }});
                                 if(res.status !== 200){
                                   throw new Error(res.error);
                                   

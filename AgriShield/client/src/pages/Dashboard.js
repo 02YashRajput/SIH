@@ -29,9 +29,10 @@ const Dashboard = () => {
           <Loading />{" "}
         </div>
       ) : (
-        <div class="flex-grow flex flex-col justify-center items-center ">
-          <Header userName={pageData.data.user.name}></Header>
 
+        <div class="flex-grow flex flex-col justify-center items-center ">
+          <Header userName={ "Guest"}></Header>
+          {console.log(pageData)}
           <video class="h-screen w-full object-cover" autoPlay loop muted>
             <source src={DashboardVideo} type="video/mp4" />
             Your browser does not support the video tag.
