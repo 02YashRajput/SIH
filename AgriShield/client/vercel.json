@@ -1,16 +1,8 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": ".",
-      "use": "@vercel/static-build",
-      "config": {}
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/*",
-      "dest": "https://8488-2401-4900-809e-6f31-1766-59ec-8159-2d37.ngrok-free.app/$1"
+      "source": "/api/(.*)",
+      "destination": "https://f278-103-76-139-64.ngrok-free.app/api/$1"
     }
   ]
 }
