@@ -83,6 +83,7 @@ router.get("/api/market-place", async (req, res) => {
         contracts = await MarketPlace.find({ BuyerId: req.user._id });
       } else {
         contracts = await MarketPlace.find();
+        console.log(contracts)
       }
 
       // Remove BuyerId from each contract

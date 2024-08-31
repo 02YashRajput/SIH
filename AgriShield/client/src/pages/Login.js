@@ -37,6 +37,7 @@ const Login = () => {
             ) {
               toast.error(err.message);
             } else {
+              console.log(err)
               toast.error("invalid Email or Phone No. or Password");
             }
     }

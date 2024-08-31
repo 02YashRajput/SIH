@@ -55,7 +55,7 @@ const OrderStatus = ({ currentStatusIndex, statusArray }) => {
                   </button>
                 )}
                 {(
-                  status[0] === "Final Payment Pending") &&( currentStatusIndex === 7 ) && (
+                  status[0] === "Final Payment Pending") &&( currentStatusIndex === 6 ) && (
                   <button
                     onClick={handlePayNowClick}
                     className="ml-5 bg-blue-500 text-white px-4 py-2 rounded-xl"
