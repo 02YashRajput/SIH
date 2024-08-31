@@ -18,7 +18,10 @@ const ChangePasswordPopup = ({ isOpen, onClose }) => {
         oldpassword :oldPassword,
         newpassword:newPassword,
         confirmpassword:confirmPassword
-      });
+      },{
+        headers: {
+          'ngrok-skip-browser-warning': 'any-value'
+        }});
       if (res.status === 200) {
         toast.success("Password changed successfully.");
         onClose();

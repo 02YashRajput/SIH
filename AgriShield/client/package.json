@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-"proxy": "https://f278-103-76-139-64.ngrok-free.app",
+"proxy": "https://f76b-103-177-203-130.ngrok-free.app",
   "private": true,
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
