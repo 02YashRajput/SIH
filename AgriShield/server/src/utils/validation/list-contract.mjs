@@ -48,10 +48,7 @@ export const ContractValidationSchema = checkSchema({
     isNumeric: {
       errorMessage: "Duration must be a number",
     },
-    isInt: {
-      options: { min: 1 },
-      errorMessage: "Duration must be at least 1",
-    },
+
   },
   productQuantity: {
     in: ['body'],
@@ -61,10 +58,7 @@ export const ContractValidationSchema = checkSchema({
     isNumeric: {
       errorMessage: "Product Quantity must be a number",
     },
-    isInt: {
-      options: { min: 1 },
-      errorMessage: "Product Quantity must be at least 1",
-    },
+
   },
   productDescription: {
     in: ['body'],

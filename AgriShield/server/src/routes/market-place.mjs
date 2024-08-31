@@ -113,6 +113,7 @@ router.post("/api/market-place/list-contract", ContractValidationSchema, async (
     const result = validationResult(req);
 console.log(req.body)
     if (!result.isEmpty()) {
+      console.log(result.array())
       return res
         .status(400)
         .send({ msg: "Error during validation", errors: result.array() });
@@ -128,12 +129,13 @@ console.log(req.body)
         return res.status(404).send({ message: "Crop not found" });
       }
       contract.productImage = crop.image;
-
+      console.log(contract)
       const newContract = new MarketPlace(contract);
       await newContract.save();
       res.status(201).send({ message: "Contract created successfully" });
 
     } catch (err) {
+      console.log(err)
       return res.status(400).send({ message: "Error creating contract", error: err.message });
     }
   } else {
