@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PaymentModal from "./PaymentModel";
 
-const OrderStatus = ({ currentStatusIndex, statusArray }) => {
+const OrderStatus = ({userType, currentStatusIndex, statusArray }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
 
@@ -46,7 +46,7 @@ const OrderStatus = ({ currentStatusIndex, statusArray }) => {
                 }`}
               >
                 {status[0]}
-                {status[0] === "Initial Payment Pending"  && (currentStatusIndex === 0  ) && (
+                {userType === "Buyer" && status[0] === "Initial Payment Pending"  && (currentStatusIndex === 0  ) && (
                   <button
                     onClick={handlePayNowClick}
                     className="ml-5 bg-blue-500 text-white px-4 py-2 rounded-xl"
@@ -54,7 +54,7 @@ const OrderStatus = ({ currentStatusIndex, statusArray }) => {
                     Pay Now
                   </button>
                 )}
-                {(
+                {(userType === "Buyer" &&
                   status[0] === "Final Payment Pending") &&( currentStatusIndex === 6 ) && (
                   <button
                     onClick={handlePayNowClick}
