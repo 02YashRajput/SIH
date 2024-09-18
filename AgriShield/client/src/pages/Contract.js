@@ -177,7 +177,7 @@ const Contract = () => {
             </div>
 
             <div>
-              <OrderStatus userType = {pageData.data.user.userType} currentStatusIndex={index} statusArray={statusArray} />
+              <OrderStatus phone = {pageData.data.user.phone} email = {pageData.data.user.email} userType = {pageData.data.user.userType} currentStatusIndex={index} statusArray={statusArray} contract= {pageData.data.contract} />
             </div>
 {
    statusArray[index][1] === pageData.data.user.userType &&

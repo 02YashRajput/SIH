@@ -5,7 +5,7 @@ import { AppContext } from "../context/AppContext";
 import Loading from "../components/Loading";
 import Footer from "../components/Footer";
 import ProfilePhoto from "../components/ProfilePhoto";
-import axios from "axios"
+import axios from "axios";
 import { toast } from "react-toastify";
 import ChangePasswordPopup from "../components/ChangePasswordPopup"; 
 import LogoutPopup from "../components/LogoutPopup";
@@ -104,7 +104,7 @@ const Profile = () => {
         </div>
       ) : (
         <>
-        {console.log(pageData)}
+          {console.log(pageData)}
           <Header userName={pageData?.data?.myprofile?.name || "User"} />
           <div className="flex-grow flex justify-center items-center mt-20">
             <div className="bg-green-100 py-20 w-full max-w-[70%] flex-grow flex justify-center items-center shadow-2xl">
@@ -141,7 +141,7 @@ const Profile = () => {
                               value={value}
                               onChange={handleMyProfileChange}
                               disabled={!isEditable}
-                              className="mt-1 block w-full outline-none border-gray-300 rounded-md shadow-sm"
+                              className="mt-1 block w-full outline-none border-[1px] border-slate-300 rounded-md shadow-sm"
                             />
                           </label>
                         ))}
@@ -166,7 +166,7 @@ const Profile = () => {
                               value={value}
                               onChange={handleBankDetailsChange}
                               disabled={!isEditable}
-                              className="mt-1 block w-full outline-none border-gray-300 rounded-md shadow-sm"
+                              className="mt-1 block w-full outline-none border-[1px] border-slate-300 rounded-md shadow-sm"
                             />
                           </label>
                         ))}
@@ -189,7 +189,7 @@ const Profile = () => {
                               value={value}
                               onChange={handleUpiDetailChange}
                               disabled={!isEditable}
-                              className="mt-1 block w-full outline-none border-gray-300 rounded-md shadow-sm"
+                              className="mt-1 block w-full outline-none border-[1px] border-slate-300 rounded-md shadow-sm"
                             />
                           </label>
                         ))}
@@ -199,126 +199,99 @@ const Profile = () => {
                   {
                     pageData.data.myprofile.userType === "Farmer" &&
                     <div className="border-t border-gray-300 mt-5 pt-5">
-                    <h2 className="text-2xl text-gray-700">Farm Details</h2>
-                    <div className="mt-2 text-gray-600">
-                      {Object.entries(pageData?.data?.farmDetails || {})
-                        
-                        .map(([key, value]) => (
-                          <label key={key} className="block mb-2">
-                            <span className="text-gray-700">
-                              {capitalizeFirstLetter(key)}:
-                            </span>
-                            <input
-                              type="text"
-                              name={key}
-                              value={Array.isArray(value)? value.join(","): value}
-                              onChange={handleFarmDetailsChange}
-                              disabled={!isEditable}
-                              className="mt-1 block w-full outline-none border-gray-300 rounded-md shadow-sm"
-                            />
-                          </label>
-                        ))}
+                      <h2 className="text-2xl text-gray-700">Farm Details</h2>
+                      <div className="mt-2 text-gray-600">
+                        {Object.entries(pageData?.data?.farmDetails || {})
+                          .map(([key, value]) => (
+                            <label key={key} className="block mb-2">
+                              <span className="text-gray-700">
+                                {capitalizeFirstLetter(key)}:
+                              </span>
+                              <input
+                                type="text"
+                                name={key}
+                                value={Array.isArray(value)? value.join(","): value}
+                                onChange={handleFarmDetailsChange}
+                                disabled={!isEditable}
+                                className="mt-1 block w-full outline-none border-[1px] border-slate-300 rounded-md shadow-sm"
+                              />
+                            </label>
+                          ))}
+                      </div>
+                      <div className="border-t border-gray-300 mt-5 pt-5">
+                        <h2 className="text-2xl text-gray-700">Notification Preference</h2>
+                        <select
+                          name="notificationPreference"
+                          value={pageData.data.notificationPreference || "on"}
+                          onChange={(e) => {
+                            setPageData(prevData => ({
+                              ...prevData,
+                              data:{
+                                ...prevData.data,
+                                notificationPreference: e.target.value
+                              }
+                            }));
+                          }}
+                          disabled={!isEditable}
+                          className="mt-2 block w-full border-gray-300 rounded-md shadow-sm"
+                        >
+                          <option value="on">Enabled</option>
+                          <option value="off">Disabled</option>
+                        </select>
+                      </div>
                     </div>
-                    <div className="border-t border-gray-300 mt-5 pt-5">
-                  <h2 className="text-2xl text-gray-700">Notification Preference</h2>
-                  <select
-                    name="notificationPreference"
-                    value={pageData.data.notificationPreference || "on"}
-                    onChange={(e) => {
-                      setPageData(prevData => ({
-                        ...prevData,
-                        data:{
-                          ...prevData.data,
-                          notificationPreference: e.target.value
-                        }
-                        
-                      }));
-                    }}
-                    disabled={!isEditable}
-                    className="mt-2 block w-full border-gray-300 rounded-md shadow-sm"
-                  >
-                    <option value="on">Enabled</option>
-                    <option value="off">Disabled</option>
-                  </select>
-                </div>
-                  </div>
                   }
                 </div>
                 <div className="mt-5 flex space-x-4">
                   {isEditable ? (
                     <>
                       <button
-                        onClick={() => setIsEditable(false)}
-                        className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        onClick={async() => {
-
-                           const sendData = JSON.parse(JSON.stringify(pageData.data));
-                           if(pageData.data.myprofile.userType === "Farmer"){
-
-                             sendData.farmDetails.cropsGrown =  Array.isArray(sendData.farmDetails.cropsGrown)?sendData.farmDetails.cropsGrown:  sendData.farmDetails.cropsGrown.split(",");
-                            }
-                             delete sendData.myprofile.email;
-                             delete sendData.myprofile.phone;
-                             delete sendData.myprofile.name;
-                             delete sendData.myprofile.userType;
-                             console.log(sendData)
-
-                            try{
-                                const res = await axios.post("/api/profile",sendData,{
-                                  headers: {
-                                    'ngrok-skip-browser-warning': 'any-value'
-                                  }});
-                                if(res.status !== 200){
-                                  throw new Error(res.error);
-                                  
-                                }
-                                else{
-                                  toast.success("profile updated successfully")
-                                  setIsEditable(false);
-
-                                }
-                            }catch(err){
-                              toast.error("An error occured",err);
-                            }
-
+                        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                        onClick={() => {
+                          setIsEditable(false);
+                          // Add code to save changes here
                         }}
-                        className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600"
                       >
                         Save
+                      </button>
+                      <button
+                        className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                        onClick={() => setIsEditable(false)}
+                      >
+                        Cancel
                       </button>
                     </>
                   ) : (
                     <button
+                      className="bg-blue-500 text-white px-4 py-2 rounded-md"
                       onClick={() => setIsEditable(true)}
-                      className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600"
                     >
                       Edit
                     </button>
                   )}
+                  <button
+                    className="bg-red-500 text-white px-4 py-2 rounded-md"
+                    onClick={() => setIsLogoutOpen(true)}
+                  >
+                    Logout
+                  </button>
+                  <button
+                    className="bg-green-500 text-white px-4 py-2 rounded-md"
+                    onClick={() => setIsChangePasswordOpen(true)}
+                  >
+                    Change Password
+                  </button>
                 </div>
-                <div className="flex mt-5 justify-between gap-16">
-                <button class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-200" onClick={() => setIsChangePasswordOpen(true)}>Change Password</button>
-      <button className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition duration-200" onClick={() => setIsLogoutOpen(true)}>Logout</button>
-      <ChangePasswordPopup
-        isOpen={isChangePasswordOpen}
-        onClose={() => setIsChangePasswordOpen(false)}
-      />
-      
-      <LogoutPopup
-        isOpen={isLogoutOpen}
-        onClose={() => setIsLogoutOpen(false)}
-      />
-                  </div>
               </div>
             </div>
           </div>
           <Footer />
         </>
       )}
+      {isChangePasswordOpen && (
+        <ChangePasswordPopup onClose={() => setIsChangePasswordOpen(false)} />
+      )}
+      {isLogoutOpen && <LogoutPopup onClose={() => setIsLogoutOpen(false)} />}
     </div>
   );
 };

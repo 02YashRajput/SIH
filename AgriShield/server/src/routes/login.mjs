@@ -1,7 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 import "../strategies/local-strategy.mjs";
-import { checkSchema, validationResult, matchedData } from "express-validator";
+import { validationResult  } from "express-validator";
 import { loginSchema } from "../utils/validation/userSchema.mjs";
 
 const router = Router();

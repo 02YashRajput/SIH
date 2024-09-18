@@ -150,6 +150,27 @@ router.post("/api/negotiations", negotiationsValidationSchema, async (req, res) 
 });
 
 
+router.post("/api/negotiations/reject", async (req, res) => {
+  console.log("reject came")
+
+  const contract = req.body;
+  console.log({contract})
+  if (!contract || !contract._id) {
+    return res.status(400).json({ error: "Contract ID is required" });
+  }
+
+  try {
+    const deletedContract = await Negotiations.findByIdAndDelete(contract._id);
+
+    if (!deletedContract) {
+      return res.status(404).json({ error: "Contract not found" });
+    }
+
+    return res.status(200).json({ message: "Contract rejected successfully", contract: deletedContract });
+  } catch (error) {
+    return res.status(500).json({ error: "An error occurred while rejecting the contract" });
+  }
+});
 
 
 

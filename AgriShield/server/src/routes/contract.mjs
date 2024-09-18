@@ -1,41 +1,7 @@
 import { Router } from "express";
 import { Contract } from "../mongoose/contract.mjs";
-import { FarmerProfile,BuyerProfile } from "../mongoose/profile.mjs";
+
 const router = Router();
-
-
-router.get("/api/contract/profile",async(req,res)=>{
-  if (req.user) {  // Check if the user is authenticated
-    try {
-      console.log(req.user);
-      let data;
-
-      console.log(req.user._id);
-
-      // Check the user's type to fetch the correct profile data
-      if (req.user.userType === "Farmer") {
-        data = await FarmerProfile.findOne({ userId: req.user._id });
-      } else {
-        data = await BuyerProfile.findOne({ userId: req.user._id }); // Use findOne here instead of findById for consistency
-      }
-
-      if (!data) {
-        return res.status(404).send({ msg: "Profile not found" }); // Handle case where no profile is found
-      }
-
-      // Check if either bank details or UPI details are filled
-      
-
-      // If none of the payment details are filled
-      res.status(200).send({ msg: "Payment Information Found", data:data.paymentInformation });
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-      res.status(500).send({ msg: "Internal Server Error" });
-    }
-  } else {
-    res.status(404).send({ msg: "User not found" });
-  }
-})
 
 
 router.get("/api/contract", async (req, res) => {
@@ -85,7 +51,7 @@ router.get("/api/contract", async (req, res) => {
    
     res.status(200).send({
       msg: "Contract found",
-      data: {user : {name :req.user.name,userType : req.user.userType},contract:contractObj}
+      data: {user : {name :req.user.name,userType : req.user.userType,email:req.user.email,phone : req.user.phone},contract:contractObj}
     });
 
   } catch (err) {

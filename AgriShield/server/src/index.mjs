@@ -10,7 +10,7 @@ import "./strategies/local-strategy.mjs";
 
 const app = express();
 
-mongoose.connect("mongodb://localhost/AgriSheild")
+mongoose.connect("mongodb+srv://02yashrajput:9275@agrishield.biwho.mongodb.net/?retryWrites=true&w=majority&appName=AgriShield")
   .then(() => {
     console.log("connected to database");
   })

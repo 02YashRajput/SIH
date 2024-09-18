@@ -61,7 +61,7 @@ const SignUp = () => {
       <div class="relative flex justify-center items-center overflow-hidden min-h-screen min-w-screen bg-slate-300 ">
         <Background />
 
-        <div class="flex flex-col md:flex-row gap-5 justify-center items-center bg-[rgba(255, 255, 255, 0.1)] p-5 backdrop-blur-sm">
+        <div class="flex flex-col md:flex-row gap-5  justify-center items-center bg-[rgba(255,255,255,0.5)] p-5 rounded-lg  z-50">
           {/* logo section */}
           <div class=" ">
             <img class="h-52 rounded-md " src={logo} alt="logo" />

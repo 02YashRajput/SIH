@@ -1,33 +1,44 @@
-import React, { useEffect, useState } from "react";
-import PaymentModal from "./PaymentModel";
+import React from "react";
+import { toast } from "react-toastify";
 
-const OrderStatus = ({userType, currentStatusIndex, statusArray }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalData, setModalData] = useState(null);
-
-  const handlePayNowClick = () => {
-    setIsModalOpen(true);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("api/contract/profile",
-          {
-            headers: {
-              'ngrok-skip-browser-warning': 'any-value'
-            }}   );
-        const data = await response.json();
-        console.log(data);
-        setModalData(data.data);
-      } catch (err) {
-        console.error(err);
-      }
+import useRazorpay from 'react-razorpay';
+const OrderStatus = ({userType,contract,email,phone, currentStatusIndex, statusArray }) => {
+  console.log({contract},phone,email)
+  const [Razorpay] = useRazorpay();
+  const handlePayNowClick = (index) => {
+    const options = {
+      key: 'rzp_test_c1jrmDzcTuWA73', // Your public test key
+      amount: index === 0 ? contract.initialPaymentAmount*100 : contract.finalPaymentAmount *100, // Amount is in currency subunits (100 = 100 INR, i.e. 1 INR)
+      currency: 'INR',
+      name: 'AgriShield Transaction',
+      description: 'This is a  payment',
+      handler: function (response) {
+        toast.success(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+      },
+      prefill: {
+        name: 'Test User',
+        email: `${email}`,
+        contact:`${phone}`,
+      },
+      theme: {
+        color: '#a7f3d0',
+      },
     };
 
-    fetchData();
-  }, []); // Empty dependency array means this effect runs once after the initial render.
+    const rzp = new Razorpay(options);
+    rzp.on("payment.failed", function (response) {
+      toast.error(response.error.code);
+      toast.error(response.error.description);
+      toast.error(response.error.source);
+      toast.error(response.error.step);
+      toast.error(response.error.reason);
 
+    });
+  
+    rzp.open();
+  };
+
+ 
   return (
     <div className="flex flex-col gap-5 texl-lg my-8">
       <div className="mb-6 relative">
@@ -48,7 +59,7 @@ const OrderStatus = ({userType, currentStatusIndex, statusArray }) => {
                 {status[0]}
                 {userType === "Buyer" && status[0] === "Initial Payment Pending"  && (currentStatusIndex === 0  ) && (
                   <button
-                    onClick={handlePayNowClick}
+                    onClick={()=> status[0] === "Initial Payment Pending" ? handlePayNowClick(0) : handlePayNowClick(1)}
                     className="ml-5 bg-blue-500 text-white px-4 py-2 rounded-xl"
                   >
                     Pay Now
@@ -73,11 +84,6 @@ const OrderStatus = ({userType, currentStatusIndex, statusArray }) => {
         Current Status: {statusArray[currentStatusIndex][0]}
       </div>
 
-      <PaymentModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        data={modalData}
-      />
     </div>
   );
 };
