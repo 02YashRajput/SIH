@@ -94,10 +94,10 @@ const Header = ({ userName }) => {
             <IoDocumentLockSharp/>My Negotiations
           </li>
           <li class="flex items-center gap-1 cursor-pointer hover:text-yellow-700 m-1 md:m-0">
-  <a href="https://8077-103-177-203-130.ngrok-free.app/" target="_blank" class="flex items-center gap-1">
+  {/* <a href="https://8077-103-177-203-130.ngrok-free.app/" target="_blank" class="flex items-center gap-1"> */}
     <IoDocumentLockSharp />
     Price Predictor
-  </a>
+  {/* </a> */}
 </li>
 
           <li
