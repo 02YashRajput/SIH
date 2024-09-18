@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 import ProfilePhoto from "../components/ProfilePhoto";
 import axios from "axios";
 import { toast } from "react-toastify";
-import ChangePasswordPopup from "../components/ChangePasswordPopup"; 
+import ChangePasswordPopup from "../components/ChangePasswordPopup";
 import LogoutPopup from "../components/LogoutPopup";
 
 const Profile = () => {
@@ -141,7 +141,7 @@ const Profile = () => {
                               value={value}
                               onChange={handleMyProfileChange}
                               disabled={!isEditable}
-                              className="mt-1 block w-full outline-none border-[1px] border-slate-300 rounded-md shadow-sm"
+                              className="mt-1 border-[1px] border-slate-400 block w-full outline-none rounded-md shadow-sm"
                             />
                           </label>
                         ))}
@@ -154,8 +154,7 @@ const Profile = () => {
                       <div className="mt-2 text-gray-600">
                         {Object.entries(
                           pageData.data.paymentInformation.bankDetails || {}
-                        )
-                        .map(([key, value]) => (
+                        ).map(([key, value]) => (
                           <label key={key} className="block mb-2">
                             <span className="text-gray-700">
                               {capitalizeFirstLetter(key)}:
@@ -166,7 +165,7 @@ const Profile = () => {
                               value={value}
                               onChange={handleBankDetailsChange}
                               disabled={!isEditable}
-                              className="mt-1 block w-full outline-none border-[1px] border-slate-300 rounded-md shadow-sm"
+                              className="mt-1 block w-full border-[1px] border-slate-400  outline-none rounded-md shadow-sm"
                             />
                           </label>
                         ))}
@@ -177,8 +176,7 @@ const Profile = () => {
                       <div className="mt-2 text-gray-600">
                         {Object.entries(
                           pageData.data.paymentInformation.upiDetails || {}
-                        )
-                        .map(([key, value]) => (
+                        ).map(([key, value]) => (
                           <label key={key} className="block mb-2">
                             <span className="text-gray-700">
                               {capitalizeFirstLetter(key)}:
@@ -189,47 +187,50 @@ const Profile = () => {
                               value={value}
                               onChange={handleUpiDetailChange}
                               disabled={!isEditable}
-                              className="mt-1 block w-full outline-none border-[1px] border-slate-300 rounded-md shadow-sm"
+                              className="mt-1 block w-full outline-none border-[1px] border-slate-400  rounded-md shadow-sm"
                             />
                           </label>
                         ))}
                       </div>
                     </div>
                   </div>
-                  {
-                    pageData.data.myprofile.userType === "Farmer" &&
+                  {pageData.data.myprofile.userType === "Farmer" && (
                     <div className="border-t border-gray-300 mt-5 pt-5">
                       <h2 className="text-2xl text-gray-700">Farm Details</h2>
                       <div className="mt-2 text-gray-600">
                         {Object.entries(pageData?.data?.farmDetails || {})
-                          .map(([key, value]) => (
-                            <label key={key} className="block mb-2">
-                              <span className="text-gray-700">
-                                {capitalizeFirstLetter(key)}:
-                              </span>
-                              <input
-                                type="text"
-                                name={key}
-                                value={Array.isArray(value)? value.join(","): value}
-                                onChange={handleFarmDetailsChange}
-                                disabled={!isEditable}
-                                className="mt-1 block w-full outline-none border-[1px] border-slate-300 rounded-md shadow-sm"
-                              />
-                            </label>
-                          ))}
+                        .map(([key, value]) => (
+                          <label key={key} className="block mb-2">
+                            <span className="text-gray-700">
+                              {capitalizeFirstLetter(key)}:
+                            </span>
+                            <input
+                              type="text"
+                              name={key}
+                              value={
+                                Array.isArray(value) ? value.join(",") : value
+                              }
+                              onChange={handleFarmDetailsChange}
+                              disabled={!isEditable}
+                              className="mt-1 block w-full outline-none border-[1px] border-slate-400 rounded-md shadow-sm"
+                            />
+                          </label>
+                        ))}
                       </div>
                       <div className="border-t border-gray-300 mt-5 pt-5">
-                        <h2 className="text-2xl text-gray-700">Notification Preference</h2>
+                        <h2 className="text-2xl text-gray-700">
+                          Notification Preference
+                        </h2>
                         <select
                           name="notificationPreference"
                           value={pageData.data.notificationPreference || "on"}
                           onChange={(e) => {
-                            setPageData(prevData => ({
+                            setPageData((prevData) => ({
                               ...prevData,
-                              data:{
+                              data: {
                                 ...prevData.data,
-                                notificationPreference: e.target.value
-                              }
+                                notificationPreference: e.target.value,
+                              },
                             }));
                           }}
                           disabled={!isEditable}
@@ -240,47 +241,91 @@ const Profile = () => {
                         </select>
                       </div>
                     </div>
-                  }
+                  )}
                 </div>
                 <div className="mt-5 flex space-x-4">
                   {isEditable ? (
                     <>
                       <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                        onClick={() => {
-                          setIsEditable(false);
-                          // Add code to save changes here
-                        }}
-                      >
-                        Save
-                      </button>
-                      <button
-                        className="bg-gray-500 text-white px-4 py-2 rounded-md"
                         onClick={() => setIsEditable(false)}
+                        className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600"
                       >
                         Cancel
+                      </button>
+                      <button
+                        onClick={async () => {
+                          const sendData = JSON.parse(
+                            JSON.stringify(pageData.data)
+                          );
+                          if (pageData.data.myprofile.userType === "Farmer") {
+                            sendData.farmDetails.cropsGrown = Array.isArray(
+                              sendData.farmDetails.cropsGrown
+                            )
+                              ? sendData.farmDetails.cropsGrown
+                              : sendData.farmDetails.cropsGrown.split(",");
+                          }
+                          delete sendData.myprofile.email;
+                          delete sendData.myprofile.phone;
+                          delete sendData.myprofile.name;
+                          delete sendData.myprofile.userType;
+                          console.log(sendData);
+
+                          try {
+                            const res = await axios.post(
+                              "/api/profile",
+                              sendData,
+                              {
+                                headers: {
+                                  "ngrok-skip-browser-warning": "any-value",
+                                },
+                              }
+                            );
+                            if (res.status !== 200) {
+                              throw new Error(res.error);
+                            } else {
+                              toast.success("profile updated successfully");
+                              setIsEditable(false);
+                            }
+                          } catch (err) {
+                            toast.error("An error occured", err);
+                          }
+                        }}
+                        className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600"
+                      >
+                        Save
                       </button>
                     </>
                   ) : (
                     <button
-                      className="bg-blue-500 text-white px-4 py-2 rounded-md"
                       onClick={() => setIsEditable(true)}
+                      className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600"
                     >
                       Edit
                     </button>
                   )}
+                </div>
+                <div className="flex mt-5 justify-between gap-16">
                   <button
-                    className="bg-red-500 text-white px-4 py-2 rounded-md"
-                    onClick={() => setIsLogoutOpen(true)}
-                  >
-                    Logout
-                  </button>
-                  <button
-                    className="bg-green-500 text-white px-4 py-2 rounded-md"
+                    class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-200"
                     onClick={() => setIsChangePasswordOpen(true)}
                   >
                     Change Password
                   </button>
+                  <button
+                    className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition duration-200"
+                    onClick={() => setIsLogoutOpen(true)}
+                  >
+                    Logout
+                  </button>
+                  <ChangePasswordPopup
+                    isOpen={isChangePasswordOpen}
+                    onClose={() => setIsChangePasswordOpen(false)}
+                  />
+
+                  <LogoutPopup
+                    isOpen={isLogoutOpen}
+                    onClose={() => setIsLogoutOpen(false)}
+                  />
                 </div>
               </div>
             </div>
@@ -288,10 +333,6 @@ const Profile = () => {
           <Footer />
         </>
       )}
-      {isChangePasswordOpen && (
-        <ChangePasswordPopup onClose={() => setIsChangePasswordOpen(false)} />
-      )}
-      {isLogoutOpen && <LogoutPopup onClose={() => setIsLogoutOpen(false)} />}
     </div>
   );
 };
