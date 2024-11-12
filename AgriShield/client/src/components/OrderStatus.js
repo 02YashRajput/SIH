@@ -7,7 +7,7 @@ const OrderStatus = ({userType,contract,email,phone, currentStatusIndex, statusA
   const [Razorpay] = useRazorpay();
   const handlePayNowClick = (index) => {
     const options = {
-      key: 'rzp_test_c1jrmDzcTuWA73', // Your public test key
+      key: 'rzp_test_g6DU9HvDCPU7Dk', // Your public test key
       amount: index === 0 ? contract.initialPaymentAmount*100 : contract.finalPaymentAmount *100, // Amount is in currency subunits (100 = 100 INR, i.e. 1 INR)
       currency: 'INR',
       name: 'AgriShield Transaction',
